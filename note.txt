@@ -1,1 +1,2 @@
 Aldi : You have to create a bucket to store image files and create a key file in JSON format for our project needs. bro
+Gilbert : Ready Bro!
