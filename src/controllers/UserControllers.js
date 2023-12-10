@@ -44,8 +44,8 @@ const createUser = async (req, res) => {
       return res.status(409).json({ msg: "User already exists" });
     } else {
       /*
-            Apply here the method to send the verification code to the user
-      */
+                  Apply here the method to send the verification code to the user
+            */
       const isVerified = true; // coba verifikasi: true (sudah) / false (belum)
 
       if (isVerified) {
