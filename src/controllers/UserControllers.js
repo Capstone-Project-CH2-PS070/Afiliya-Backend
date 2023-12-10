@@ -1,16 +1,16 @@
-const crypto = require("crypto");
-const { Op } = require("sequelize");
-const { Storage } = require("@google-cloud/storage");
-const dotenv = require("dotenv");
-const path = require("path");
+const crypto = require('crypto');
+const { Op } = require('sequelize');
+const { Storage } = require('@google-cloud/storage');
+const dotenv = require('dotenv');
+const path = require('path');
 
-const User = require("../models/UsersModel");
+const User = require('../models/UsersModel');
 
 dotenv.config();
 
-let projectId = process.env.PROJECT_ID;
-let keyFilename = path.join(__dirname, process.env.KEY_FILE_NAME);
-let myBucket = process.env.USER_BUCKET;
+const projectId = process.env.PROJECT_ID;
+const keyFilename = path.join(__dirname, process.env.KEY_FILE_NAME);
+const myBucket = process.env.USER_BUCKET;
 
 const storage = new Storage({
   projectId,
@@ -20,7 +20,7 @@ const storage = new Storage({
 const bucket = storage.bucket(myBucket);
 
 const createUser = async (req, res) => {
-  console.log("Processing /create-user");
+  console.log('Processing /create-user');
 
   try {
     const {
@@ -36,41 +36,39 @@ const createUser = async (req, res) => {
     // Checking user data
     const isUser = await User.findOne({
       where: {
-        [Op.or]: [{ telephone: telephone }, { email: email }],
+        [Op.or]: [{ telephone }, { email }],
       },
     });
 
     if (isUser) {
-      return res.status(409).json({ msg: "User already exists" });
-    } else {
-      /*
-                  Apply here the method to send the verification code to the user
-            */
-      const isVerified = true; // coba verifikasi: true (sudah) / false (belum)
-
-      if (isVerified) {
-        const userId = crypto.randomBytes(16).toString("hex");
-
-        await User.create({
-          user_id: userId,
-          fullname: fullname,
-          email: email,
-          password: password,
-          telephone: telephone,
-          gender: gender,
-          birthplace: birthplace,
-          birthdate: birthdate,
-        });
-
-        console.log("Data successfully saved to the database");
-        return res.status(201).json({ msg: "User Created!" });
-      } else {
-        return res.status(422).json({ msg: "Failed verification!" });
-      }
+      return res.status(409).json({ msg: 'User already exists' });
     }
+    /*
+            Apply here the method to send the verification code to the user
+      */
+    const isVerified = true; // coba verifikasi: true (sudah) / false (belum)
+
+    if (isVerified) {
+      const userId = crypto.randomBytes(16).toString('hex');
+
+      await User.create({
+        user_id: userId,
+        fullname,
+        email,
+        password,
+        telephone,
+        gender,
+        birthplace,
+        birthdate,
+      });
+
+      console.log('Data successfully saved to the database');
+      return res.status(201).json({ msg: 'User Created!' });
+    }
+    return res.status(422).json({ msg: 'Failed verification!' });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ msg: "Internal server error" });
+    return res.status(500).json({ msg: 'Internal server error' });
   }
 };
 
@@ -84,7 +82,7 @@ const getUserByID = async (req, res) => {
     if (response) {
       res.status(200).json(response);
     } else {
-      res.status(404).json({ msg: "User not found!" });
+      res.status(404).json({ msg: 'User not found!' });
     }
   } catch (error) {
     res.status(500).json({ msg: error.message });
@@ -103,8 +101,8 @@ const updateUser = async (req, res) => {
     const deleteImageFromBucket = async (imageUrl) => {
       if (imageUrl) {
         const [bucketName, fileName] = imageUrl
-          .replace(`${(bucketName, fileName)}/`, "")
-          .split("/");
+          .replace(`${bucket.storage.apiEndpoint}/`, '')
+          .split('/');
 
         const bucketObj = storage.bucket(bucketName);
         const file = bucketObj.file(fileName);
@@ -116,18 +114,18 @@ const updateUser = async (req, res) => {
     if (req.file) {
       await deleteImageFromBucket(user.image);
 
-      const image = crypto.randomBytes(16).toString("hex");
+      const image = crypto.randomBytes(16).toString('hex');
       const fileName = `${image}.jpeg`;
 
       blob = bucket.file(fileName);
       const blobStream = blob.createWriteStream();
 
       await new Promise((resolve, reject) => {
-        blobStream.on("finish", () => {
+        blobStream.on('finish', () => {
           resolve();
         });
 
-        blobStream.on("error", (error) => {
+        blobStream.on('error', (error) => {
           reject(error);
         });
         blobStream.end(req.file.buffer);
@@ -138,8 +136,9 @@ const updateUser = async (req, res) => {
       ? `${blob.storage.apiEndpoint}/${myBucket}/${blob.name}`
       : null;
 
-    const { fullname, email, telephone, gender, birthplace, birthdate } =
-      req.body;
+    const {
+      fullname, email, telephone, gender, birthplace, birthdate,
+    } = req.body;
 
     if (user) {
       user.fullname = fullname;
@@ -153,13 +152,13 @@ const updateUser = async (req, res) => {
         user.image = userImage;
       }
 
-      await ShopsModel.save();
-      res.status(200).json({ msg: "User Updated!" });
+      await user.save();
+      res.status(200).json({ msg: 'User Updated!' });
     } else {
-      res.status(400).json({ msg: "Invalid Data!" });
+      res.status(400).json({ msg: 'Invalid Data!' });
     }
   } catch (error) {
-    res.staus(500).json({ msg: error.message });
+    res.status(500).json({ msg: error.message });
   }
 };
 
@@ -173,13 +172,13 @@ const deleteUser = async (req, res) => {
       },
     });
     if (!user) {
-      return res.status(404).json({ msg: "User not found!" });
+      return res.status(404).json({ msg: 'User not found!' });
     }
 
     if (user.image) {
       const [bucketName, fileName] = user.image
-        .replace(`${bucket.storage.apiEndpoint}/`, "")
-        .split("/");
+        .replace(`${bucket.storage.apiEndpoint}/`, '')
+        .split('/');
 
       const bucketObj = storage.bucket(bucketName);
       const file = bucketObj.file(fileName);
@@ -192,9 +191,9 @@ const deleteUser = async (req, res) => {
       },
     });
 
-    res.status(200).json({ msg: "User Deleted!" });
+    return res.status(200).json({ msg: 'User Deleted!' });
   } catch (error) {
-    res.status(500).json({ msg: error.message });
+    return res.status(500).json({ msg: error.message });
   }
 };
 
