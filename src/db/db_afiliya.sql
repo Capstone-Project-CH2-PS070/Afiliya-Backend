@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Des 2023 pada 17.49
--- Versi server: 10.4.28-MariaDB
--- Versi PHP: 8.2.4
+-- Generation Time: Dec 17, 2023 at 12:17 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_comments`
+-- Table structure for table `tb_comments`
 --
 
 CREATE TABLE `tb_comments` (
@@ -40,7 +40,7 @@ CREATE TABLE `tb_comments` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_orders`
+-- Table structure for table `tb_orders`
 --
 
 CREATE TABLE `tb_orders` (
@@ -64,35 +64,43 @@ CREATE TABLE `tb_orders` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_otp_email`
+-- Table structure for table `tb_otp_email`
 --
 
 CREATE TABLE `tb_otp_email` (
-  `id` int(11) NOT NULL,
+  `user_id_otp_email` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `email` varchar(50) NOT NULL,
-  `otp` int(10) NOT NULL,
+  `otp` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `createdAt` date NOT NULL DEFAULT current_timestamp(),
-  `expiredAt` date DEFAULT NULL
+  `expiredAt` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_otp_telephone`
+-- Table structure for table `tb_otp_telephones`
 --
 
-CREATE TABLE `tb_otp_telephone` (
-  `id` int(11) NOT NULL,
+CREATE TABLE `tb_otp_telephones` (
+  `user_id_otp_telephone` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `telephone` varchar(20) NOT NULL,
-  `otp` varchar(10) NOT NULL,
+  `otp` varchar(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `createdAt` date NOT NULL DEFAULT current_timestamp(),
-  `expiredAt` date DEFAULT NULL
+  `expiredAt` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_otp_telephones`
+--
+
+INSERT INTO `tb_otp_telephones` (`user_id_otp_telephone`, `telephone`, `otp`, `createdAt`, `expiredAt`) VALUES
+('130b44caab6be8680d2adcc7f2986090', '6281386176365@c.us', '$2b$10$OJv', '2023-12-16', '2023-12-16'),
+('184e1f1304b78dd1c37344d6e36e3992', '6282361484992@c.us', '$2b$10$.TS', '2023-12-16', '2023-12-16');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_payments`
+-- Table structure for table `tb_payments`
 --
 
 CREATE TABLE `tb_payments` (
@@ -113,7 +121,7 @@ CREATE TABLE `tb_payments` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_products`
+-- Table structure for table `tb_products`
 --
 
 CREATE TABLE `tb_products` (
@@ -136,7 +144,7 @@ CREATE TABLE `tb_products` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_sessions`
+-- Table structure for table `tb_sessions`
 --
 
 CREATE TABLE `tb_sessions` (
@@ -149,7 +157,7 @@ CREATE TABLE `tb_sessions` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_shops`
+-- Table structure for table `tb_shops`
 --
 
 CREATE TABLE `tb_shops` (
@@ -166,7 +174,7 @@ CREATE TABLE `tb_shops` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data untuk tabel `tb_shops`
+-- Dumping data for table `tb_shops`
 --
 
 INSERT INTO `tb_shops` (`shop_id`, `user_id`, `shop_name`, `shop_ctg`, `telephone`, `address`, `description`, `createdAt`, `updatedAt`, `shop_image`) VALUES
@@ -177,7 +185,7 @@ INSERT INTO `tb_shops` (`shop_id`, `user_id`, `shop_name`, `shop_ctg`, `telephon
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_shops_histories`
+-- Table structure for table `tb_shops_histories`
 --
 
 CREATE TABLE `tb_shops_histories` (
@@ -191,7 +199,7 @@ CREATE TABLE `tb_shops_histories` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_users`
+-- Table structure for table `tb_users`
 --
 
 CREATE TABLE `tb_users` (
@@ -213,7 +221,7 @@ CREATE TABLE `tb_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data untuk tabel `tb_users`
+-- Dumping data for table `tb_users`
 --
 
 INSERT INTO `tb_users` (`user_id`, `fullname`, `email`, `password`, `isVerification`, `telephone`, `gender`, `birthplace`, `birthdate`, `image`, `isAffiliator`, `isShop`, `token`, `createdAt`, `updatedAt`) VALUES
@@ -226,7 +234,7 @@ INSERT INTO `tb_users` (`user_id`, `fullname`, `email`, `password`, `isVerificat
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_users_histories`
+-- Table structure for table `tb_users_histories`
 --
 
 CREATE TABLE `tb_users_histories` (
@@ -240,7 +248,7 @@ CREATE TABLE `tb_users_histories` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_user_address`
+-- Table structure for table `tb_user_address`
 --
 
 CREATE TABLE `tb_user_address` (
@@ -259,101 +267,89 @@ CREATE TABLE `tb_user_address` (
 --
 
 --
--- Indeks untuk tabel `tb_comments`
+-- Indexes for table `tb_comments`
 --
 ALTER TABLE `tb_comments`
   ADD PRIMARY KEY (`comment_id`);
 
 --
--- Indeks untuk tabel `tb_orders`
+-- Indexes for table `tb_orders`
 --
 ALTER TABLE `tb_orders`
   ADD PRIMARY KEY (`order_id`);
 
 --
--- Indeks untuk tabel `tb_otp_email`
+-- Indexes for table `tb_otp_email`
 --
 ALTER TABLE `tb_otp_email`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`user_id_otp_email`);
 
 --
--- Indeks untuk tabel `tb_otp_telephone`
+-- Indexes for table `tb_otp_telephones`
 --
-ALTER TABLE `tb_otp_telephone`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `tb_otp_telephones`
+  ADD PRIMARY KEY (`user_id_otp_telephone`);
 
 --
--- Indeks untuk tabel `tb_payments`
+-- Indexes for table `tb_payments`
 --
 ALTER TABLE `tb_payments`
   ADD PRIMARY KEY (`payment_id`);
 
 --
--- Indeks untuk tabel `tb_products`
+-- Indexes for table `tb_products`
 --
 ALTER TABLE `tb_products`
   ADD PRIMARY KEY (`product_id`);
 
 --
--- Indeks untuk tabel `tb_sessions`
+-- Indexes for table `tb_sessions`
 --
 ALTER TABLE `tb_sessions`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- Indeks untuk tabel `tb_shops`
+-- Indexes for table `tb_shops`
 --
 ALTER TABLE `tb_shops`
   ADD PRIMARY KEY (`shop_id`);
 
 --
--- Indeks untuk tabel `tb_shops_histories`
+-- Indexes for table `tb_shops_histories`
 --
 ALTER TABLE `tb_shops_histories`
   ADD PRIMARY KEY (`history_id`);
 
 --
--- Indeks untuk tabel `tb_users`
+-- Indexes for table `tb_users`
 --
 ALTER TABLE `tb_users`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- Indeks untuk tabel `tb_users_histories`
+-- Indexes for table `tb_users_histories`
 --
 ALTER TABLE `tb_users_histories`
   ADD PRIMARY KEY (`history_id`);
 
 --
--- Indeks untuk tabel `tb_user_address`
+-- Indexes for table `tb_user_address`
 --
 ALTER TABLE `tb_user_address`
   ADD PRIMARY KEY (`address_id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `tb_comments`
+-- AUTO_INCREMENT for table `tb_comments`
 --
 ALTER TABLE `tb_comments`
   MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_otp_email`
---
-ALTER TABLE `tb_otp_email`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT untuk tabel `tb_otp_telephone`
---
-ALTER TABLE `tb_otp_telephone`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT untuk tabel `tb_user_address`
+-- AUTO_INCREMENT for table `tb_user_address`
 --
 ALTER TABLE `tb_user_address`
   MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT;
