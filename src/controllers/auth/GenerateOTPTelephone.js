@@ -1,9 +1,9 @@
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
-const User = require('../models/UsersModel');
-const generateOTP = require('../utils/GenerateOTP');
-const SendMessageTelephone = require('../utils/SendMessageTelephone');
-const { hashData, verifyHashedData } = require('../utils/HashData');
+const User = require('../../models/UsersModel');
+const generateOTP = require('../../utils/GenerateOTP');
+const SendMessageTelephone = require('../../utils/SendMessageTelephone');
+const { hashData, verifyHashedData } = require('../../utils/HashData');
 
 const client = new Client({
   authStrategy: new LocalAuth(),

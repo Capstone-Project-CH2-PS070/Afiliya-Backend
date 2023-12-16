@@ -7,6 +7,7 @@ const {
   updateUser,
   deleteUser,
 } = require('../controllers/UserControllers');
+const { sendOTPTelephone } = require('../controllers/auth/GenerateOTPTelephone');
 
 const multer = Multer({
   storage: Multer.memoryStorage(),
