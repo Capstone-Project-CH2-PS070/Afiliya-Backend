@@ -18,6 +18,7 @@ const multer = Multer({
 const router = express.Router();
 const upload = Multer();
 
+router.post('/user/signup/telephone', sendOTPTelephone);
 router.post('/create-user', upload.none(), createUser);
 router.get('/users/:id', getUserByID);
 router.patch('/users/:id/update', multer.single('userImage'), updateUser);
