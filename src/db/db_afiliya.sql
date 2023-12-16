@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Des 2023 pada 17.02
+-- Waktu pembuatan: 16 Des 2023 pada 17.49
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -64,6 +64,34 @@ CREATE TABLE `tb_orders` (
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `tb_otp_email`
+--
+
+CREATE TABLE `tb_otp_email` (
+  `id` int(11) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `otp` int(10) NOT NULL,
+  `createdAt` date NOT NULL DEFAULT current_timestamp(),
+  `expiredAt` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_otp_telephone`
+--
+
+CREATE TABLE `tb_otp_telephone` (
+  `id` int(11) NOT NULL,
+  `telephone` varchar(20) NOT NULL,
+  `otp` varchar(10) NOT NULL,
+  `createdAt` date NOT NULL DEFAULT current_timestamp(),
+  `expiredAt` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `tb_payments`
 --
 
@@ -104,6 +132,19 @@ CREATE TABLE `tb_products` (
   `createdAt` date NOT NULL DEFAULT current_timestamp(),
   `updatedAt` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_sessions`
+--
+
+CREATE TABLE `tb_sessions` (
+  `user_id` varchar(225) NOT NULL,
+  `session` varchar(255) NOT NULL,
+  `createdAt` date NOT NULL DEFAULT current_timestamp(),
+  `expiredAt` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -230,6 +271,18 @@ ALTER TABLE `tb_orders`
   ADD PRIMARY KEY (`order_id`);
 
 --
+-- Indeks untuk tabel `tb_otp_email`
+--
+ALTER TABLE `tb_otp_email`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `tb_otp_telephone`
+--
+ALTER TABLE `tb_otp_telephone`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `tb_payments`
 --
 ALTER TABLE `tb_payments`
@@ -240,6 +293,12 @@ ALTER TABLE `tb_payments`
 --
 ALTER TABLE `tb_products`
   ADD PRIMARY KEY (`product_id`);
+
+--
+-- Indeks untuk tabel `tb_sessions`
+--
+ALTER TABLE `tb_sessions`
+  ADD PRIMARY KEY (`user_id`);
 
 --
 -- Indeks untuk tabel `tb_shops`
@@ -280,6 +339,18 @@ ALTER TABLE `tb_user_address`
 --
 ALTER TABLE `tb_comments`
   MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_otp_email`
+--
+ALTER TABLE `tb_otp_email`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_otp_telephone`
+--
+ALTER TABLE `tb_otp_telephone`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_user_address`
