@@ -1,6 +1,7 @@
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
-const User = require('../../models/UsersModel');
+const crypto = require('crypto');
+const OTPTelephone = require('../../models/GenerateOTPTelephoneModel');
 const generateOTP = require('../../utils/GenerateOTP');
 const SendMessageTelephone = require('../../utils/SendMessageTelephone');
 const { hashData, verifyHashedData } = require('../../utils/HashData');
@@ -24,7 +25,7 @@ const verificationOTPTelephone = async ({ telephone, otp }) => {
     throw new Error('Provide values for telephone and otp');
   }
 
-  const matchedOTPRecord = await User.findOne({
+  const matchedOTPRecord = await OTPTelephone.findOne({
     telephone,
   });
 
@@ -37,7 +38,7 @@ const verificationOTPTelephone = async ({ telephone, otp }) => {
   const { expiresAt } = matchedOTPRecord;
 
   if (expiresAt < Date.now()) {
-    await User.deleteOne({ telephone });
+    await OTPTelephone.destroy({ where: { telephone } });
     throw new Error('Code has expired. Request for a new one.');
   }
 
@@ -69,7 +70,7 @@ const sendOTPTelephone = async (req, res) => {
       return res.status(400).json({ status: 'Fail', message: 'WA number is not registered' });
     }
 
-    const existingUser = await User.findOne({
+    const existingUser = await OTPTelephone.findOne({
       where: {
         telephone: formattedTelephone,
       },
@@ -77,6 +78,7 @@ const sendOTPTelephone = async (req, res) => {
 
     const generatedOTP = await generateOTP();
     const hashedOTP = await hashData(generatedOTP);
+    const userIdOTPTelephone = crypto.randomBytes(16).toString('hex');
 
     const messageTelephoneOptions = {
       client,
@@ -93,15 +95,13 @@ const sendOTPTelephone = async (req, res) => {
       return res.json({ status: 'Success', updatedOTPRecord: existingUser });
     }
 
-    const newUser = await User.create(
+    const newUser = await OTPTelephone.create(
       {
+        user_id_otp_telephone: userIdOTPTelephone,
         telephone: formattedTelephone,
         otp: hashedOTP,
         createdAt: Date.now(),
         expiresAt: Date.now() + 300000,
-      },
-      {
-        fields: ['telephone', 'otp', 'createdAt', 'expiresAt'],
       },
     );
 
@@ -113,7 +113,7 @@ const sendOTPTelephone = async (req, res) => {
 };
 
 const deleteOTPTelephone = async (telephone) => {
-  await User.deleteOne({ telephone });
+  await OTPTelephone.destroy({ where: { telephone } });
 };
 
 module.exports = {
