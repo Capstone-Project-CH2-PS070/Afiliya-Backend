@@ -7,7 +7,7 @@ const {
   updateUser,
   deleteUser,
 } = require('../controllers/UserControllers');
-const { sendOTPTelephone } = require('../controllers/auth/GenerateOTPTelephone');
+const { sendOTPTelephone, verificationOTPTelephone } = require('../controllers/auth/GenerateOTPTelephone');
 
 const multer = Multer({
   storage: Multer.memoryStorage(),
@@ -20,6 +20,7 @@ const router = express.Router();
 const upload = Multer();
 
 router.post('/users/telephones_otp', sendOTPTelephone);
+router.post('/users/telephones_verification', verificationOTPTelephone);
 router.post('/create-user', upload.none(), createUser);
 router.get('/users/:id', getUserByID);
 router.patch('/users/:id/update', multer.single('userImage'), updateUser);
