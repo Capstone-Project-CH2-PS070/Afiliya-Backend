@@ -45,7 +45,7 @@ const verificationOTPTelephone = async ({ telephone, otp }) => {
   const hashedOTP = matchedOTPRecord.otp;
   const validOTP = await verifyHashedData(otp, hashedOTP);
 
-  matchedOTPRecord.verified = true;
+  matchedOTPRecord.verified = 1;
   await matchedOTPRecord.save();
 
   return validOTP;
@@ -93,7 +93,7 @@ const sendOTPTelephone = async (req, res) => {
 
     if (existingUser) {
       existingUser.otp = hashedOTP;
-      existingUser.verified = false;
+      existingUser.verified = 0;
       existingUser.createdAt = Date.now();
       existingUser.expiresAt = Date.now() + 300000;
       await existingUser.save();
@@ -104,7 +104,7 @@ const sendOTPTelephone = async (req, res) => {
       {
         user_id_otp_telephone: userIdOTPTelephone,
         telephone: formattedTelephone,
-        verified: false,
+        verified: 0,
         otp: hashedOTP,
         createdAt: Date.now(),
         expiresAt: Date.now() + 300000,
