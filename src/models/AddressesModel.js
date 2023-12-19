@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../db_config');
+const sequelize = require('../config/database');
 
 const AddressesModel = sequelize.define('tb_user_address', {
   address_id: {

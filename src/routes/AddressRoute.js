@@ -12,9 +12,9 @@ const {
 
 const router = express.Router();
 
-router.get('/users/:id/address/', getAddressesByUserId);
-router.patch('/users/address/:id', multer.none(), updateAddressByAddressId);
-router.post('/users/address', multer.none(), createUserAddress);
-router.delete('/users/address/:id', deleteUserAddress);
+router.get('/user/:id/address/', getAddressesByUserId);
+router.patch('/user/address/:id', multer.none(), updateAddressByAddressId);
+router.post('/user/address', multer.none(), createUserAddress);
+router.delete('/user/address/:id', deleteUserAddress);
 
 module.exports = router;

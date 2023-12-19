@@ -35,7 +35,6 @@ const createShop = async (req, res) => {
         });
 
         blobStream.on('error', (error) => {
-          console.error('Error saat mengunggah file:', error);
           reject(error);
         });
 

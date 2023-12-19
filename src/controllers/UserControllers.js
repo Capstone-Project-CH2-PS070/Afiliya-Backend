@@ -20,14 +20,11 @@ const storage = new Storage({
 const bucket = storage.bucket(myBucket);
 
 const createUser = async (req, res) => {
-  console.log('Processing /create-user');
-
   try {
     const {
       fullname,
       email,
       password,
-      telephone,
       gender,
       birthplace,
       birthdate,
@@ -36,7 +33,7 @@ const createUser = async (req, res) => {
     // Checking user data
     const isUser = await User.findOne({
       where: {
-        [Op.or]: [{ telephone }, { email }],
+        [Op.or]: [{ email }],
       },
     });
 
@@ -46,7 +43,7 @@ const createUser = async (req, res) => {
     /*
             Apply here the method to send the verification code to the user
       */
-    const isVerified = true; // coba verifikasi: true (sudah) / false (belum)
+    const isVerified = true; // coba verifikasi: true / false
 
     if (isVerified) {
       const userId = crypto.randomBytes(16).toString('hex');
@@ -56,7 +53,6 @@ const createUser = async (req, res) => {
         fullname,
         email,
         password,
-        telephone,
         gender,
         birthplace,
         birthdate,

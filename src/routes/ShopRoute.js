@@ -14,11 +14,11 @@ const multer = Multer({
 
 const router = express.Router();
 
-router.get('/shops', getAllShops);
-router.get('/shops/:id', getShopByID);
-router.get('/shops/name/:name', getShopByName);
+router.get('/shop', getAllShops);
+router.get('/shop/:id', getShopByID);
+router.get('/shop/name/:name', getShopByName);
 router.post('/create-shop', multer.single('shopImage'), createShop);
-router.patch('/shops/:id/update', multer.single('shopImage'), updateShop);
-router.delete('/shops/:id', deleteShop);
+router.patch('/shop/:id/update', multer.single('shopImage'), updateShop);
+router.delete('/shop/:id', deleteShop);
 
 module.exports = router;
