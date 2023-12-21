@@ -1,4 +1,4 @@
-<H1 align ="center" >Afilia Backend (API)</h1>
+<H1 align ="center" >Afiliya Backend (API)</h1>
 <h5  align ="center"> 
 This repository contains a backend implementation for the Afiliya application, namely an application for trying products before making a purchase and as an affiliate of the product for income from affiliates.</h5>
 <br/>
