@@ -1,4 +1,4 @@
-<H1 align ="center" >Afilia Backend (API)<br/>{ SiPeKa }</h1>
+<H1 align ="center" >Afilia Backend (API)</h1>
 <h5  align ="center"> 
 This repository contains a backend implementation for the Afiliya application, namely an application for trying products before making a purchase and as an affiliate of the product for income from affiliates.</h5>
 <br/>
@@ -7,13 +7,10 @@ This repository contains a backend implementation for the Afiliya application, n
 The Afiliya backend is built using the JavaScript programming language and the Express JS framework. It provides API endpoints for user authentication and user-related operations. The backend utilizes JWT for authentication, MySQL for data storage, and includes database migration capabilities.
 
   * [Configuration and Setup](#configuration-and-setup)
-  * [Key Features](#key-features)
   * [Technologies used](#technologies-used)
-      - [Frontend](#frontend)
-      - [Backend](#backend)
-      - [Database](#database)
-  * [📸 Screenshots](#screenshots)
-  * [Meet The Teams](#meet-the-teams)
+  * [Project Structure](#project-structure)
+  * [Cloud Architecture](#cloud-architecture)
+  * [Database Sturucture](#database-e)
   * [Author](#author)
   * [License](#license)
 
@@ -104,7 +101,6 @@ This project was created using the following technologies.
 ├── controllers
 │   └── auth
 │       ├── GenerateOTPTelephoneControllers.js
-│   ├── address.go
 │   ├── AddressControllers.js
 │   ├── OrderControllers.js
 │   ├── ProductControllers.js
@@ -150,8 +146,8 @@ This project was created using the following technologies.
 ![img-database-structure](https://github.com/Capstone-Project-CH2-PS070/Afiliya-Backend/assets/111676859/ee51a1ef-8a71-47c0-b3d1-591606d6e3e6)
 
 ## Author
-[Gilbert Hutapea](https://berthutapea.vercel.app/)
-[Aldi Ramdani](https://github.com/AldiRamdani0401)
+- [Gilbert Hutapea](https://berthutapea.vercel.app/)
+- [Aldi Ramdani](https://github.com/AldiRamdani0401)
 
 ## License
 
