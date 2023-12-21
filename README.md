@@ -10,7 +10,7 @@ The Afiliya backend is built using the JavaScript programming language and the E
   * [Technologies used](#technologies-used)
   * [Project Structure](#project-structure)
   * [Cloud Architecture](#cloud-architecture)
-  * [Database Sturucture](#database-e)
+  * [Database Sturucture](#database-structure)
   * [Author](#author)
   * [License](#license)
 
@@ -96,45 +96,47 @@ This project was created using the following technologies.
 ├── package.json
 ├── README.md
 ├── SECURITY.md
-├── config
-│   └── Database.js
-├── controllers
-│   └── auth
-│       ├── GenerateOTPTelephoneControllers.js
-│   ├── AddressControllers.js
-│   ├── OrderControllers.js
-│   ├── ProductControllers.js
-│   ├── ShopControllers.js
-│   ├── UserControllers.js
-│   ├── others file ...
-├── db
-│   ├── db_afiliya.sql
-├── middlewares
-│   └── AuthMiddleware.js
-├── models
-│   ├── AddressesModel.js
-│   ├── GenerateOTPTelephoneModel.js
-│   ├── OrdersModel.js
-│   ├── ProductsModel.js
-│   ├── ShopsModel.js
-│   ├── UsersModel.js
-│   └── others file ...
-├── routes
-│   ├── AddressRoute.js
-│   ├── OrderRoute.js
-│   ├── ProductRoute.js
-│   ├── ShopRoute.js
-│   ├── UserRoute.js
-│   ├── others file ...
-├── utils
-│    ├── CreateToken.js
-│    ├── GenerateOTP.js
-│    ├── HashData.js
-│    ├── MachineLearning.js
-│    ├── SendMessageEmail.js
-│    ├── SendMessageTelephone.js
-│    ├── others file ...
-└── server.js
+├── src
+│   ├── config
+│       └── Database.js
+│   ├── controllers
+│       ├── auth
+│           └── GenerateOTPTelephoneControllers.js
+│       ├── AddressControllers.js
+│       ├── OrderControllers.js
+│       ├── ProductControllers.js
+│       ├── ShopControllers.js
+│       ├── UserControllers.js
+│       ├── others file ...
+│   ├── db
+│       └── db_afiliya.sql
+│   ├── middlewares
+│       └── AuthMiddleware.js
+│   ├── models
+│       ├── AddressesModel.js
+│       ├── GenerateOTPTelephoneModel.js
+│       ├── OrdersModel.js
+│       ├── ProductsModel.js
+│       ├── ShopsModel.js
+│       ├── UsersModel.js
+│       ├── others file ...
+│   ├── routes
+│       ├── AddressRoute.js
+│       ├── OrderRoute.js
+│       ├── ProductRoute.js
+│       ├── ProductsModel.js
+│       ├── ShopRoute.js
+│       ├── UserRoute.js
+│       ├── others file ...
+│   ├── utils
+│       ├── CreateToken.js
+│       ├── GenerateOTP.js
+│       ├── HashData.js
+│       ├── MachineLearning.js
+│       ├── SendMessageEmail.js
+│       ├── SendMessageTelephone.js
+│       ├── others file ...
+│   └── server.js
 ```
 
 ##  Cloud Architecture
